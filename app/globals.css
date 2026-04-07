@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    color: #2C2C2A;
+    background: #ffffff;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #2C2C2A;
+    line-height: 1.25;
+  }
+
+  p {
+    color: #5F5E5A;
+    line-height: 1.7;
+  }
+
+  a {
+    color: #1D9E75;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #0F6E56;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 hover:bg-primary-dark active:scale-[0.98] shadow-sm hover:shadow-md;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 border border-gray-200 rounded-xl text-text-primary bg-white focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all duration-150 text-base;
+  }
+
+  .card {
+    @apply bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-200;
+  }
+
+  .section-title {
+    @apply text-2xl font-bold text-text-primary mb-4;
+  }
+
+  .badge {
+    @apply text-xs font-semibold px-2.5 py-1 rounded-full;
+  }
+}
+
+/* Sticky table header */
+.table-sticky thead th {
+  position: sticky;
+  top: 0;
+  background: #f9fafb;
+  z-index: 1;
+}
+
+/* Smooth appear animation for result */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-result {
+  animation: fadeSlideUp 0.35s ease-out forwards;
+}
+
+/* AdSense placeholder styling */
+.ad-unit {
+  min-height: 90px;
+  background: #f9fafb;
+  border: 1px dashed #e5e7eb;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9C9B97;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
