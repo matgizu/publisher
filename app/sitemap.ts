@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { TOOLS_REGISTRY } from "@/lib/tools-registry";
 
-const BASE_URL = "https://caclutools.online";
+const BASE_URL = "https://calcutools.online";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const toolEntries = TOOLS_REGISTRY.map((tool) => ({
