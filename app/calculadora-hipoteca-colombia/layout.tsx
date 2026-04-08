@@ -12,13 +12,13 @@ export const metadata: Metadata = {
     "amortizacion credito hipotecario colombia",
   ],
   alternates: {
-    canonical: "https://calcutools.lat/calculadora-hipoteca-colombia",
+    canonical: "https://publisher-production-26af.up.railway.app/calculadora-hipoteca-colombia",
   },
   openGraph: {
     title: "Calculadora de Hipoteca Colombia 2025 | CalcuTools",
     description:
       "Calcula cuota mensual, total a pagar e intereses de tu crédito hipotecario en Colombia. Incluye tabla de amortización.",
-    url: "https://calcutools.lat/calculadora-hipoteca-colombia",
+    url: "https://publisher-production-26af.up.railway.app/calculadora-hipoteca-colombia",
     type: "website",
   },
 };

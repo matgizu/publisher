@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   },
   description:
     "Calculadoras financieras, conversores y generadores gratuitos para Colombia, México y España. Sin registro, resultado inmediato.",
-  metadataBase: new URL("https://calcutools.lat"),
+  metadataBase: new URL("https://publisher-production-26af.up.railway.app"),
   openGraph: {
     type: "website",
     locale: "es_CO",
