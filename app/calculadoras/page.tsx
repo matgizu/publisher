@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Calculadoras Financieras Gratis para Colombia | CalcuTools",
   description:
     "Calculadoras de hipoteca, préstamo personal, nómina, impuestos y más para Colombia y Latinoamérica. Gratuitas, sin registro.",
-  alternates: { canonical: "https://caclutools.online/calculadoras" },
+  alternates: { canonical: "https://calcutools.online/calculadoras" },
 };
 
 export default function CalculadorasPage() {
