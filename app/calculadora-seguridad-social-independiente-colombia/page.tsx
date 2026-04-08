@@ -1,25 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Cuánto Pago de Seguridad Social como Independiente 2026 | Calculadora Gratis",
-  description:
-    "Calcula cuánto pagas de seguridad social como independiente en Colombia 2026. Salud, pensión y ARL sobre tu ingreso real. Calculadora gratis online.",
-  alternates: {
-    canonical:
-      "https://publisher-production-26af.up.railway.app/calculadora-seguridad-social-independiente-colombia",
-  },
-  openGraph: {
-    title:
-      "Cuánto Pago de Seguridad Social como Independiente 2026 | Calculadora Gratis",
-    description:
-      "Calcula cuánto pagas de seguridad social como independiente en Colombia 2026. Salud, pensión y ARL sobre tu ingreso real. Calculadora gratis online.",
-    url: "https://publisher-production-26af.up.railway.app/calculadora-seguridad-social-independiente-colombia",
-    type: "website",
-  },
-};
 
 const ARL_RATES: Record<string, number> = {
   "I (0.522%)": 0.00522,
