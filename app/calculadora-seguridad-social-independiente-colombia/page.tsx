@@ -373,3 +373,171 @@ export default function Page() {
                   htmlFor="smmlv"
                   className="block text-sm font-semibold text-[#2C2C2A] mb-1"
                 >
+                  Salario mínimo mensual vigente (COP)
+                </label>
+                <p className="text-xs text-[#9C9B97] mb-2">
+                  Precargado con el SMMLV 2025 — ajusta si necesitas simular otro valor
+                </p>
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#9C9B97] font-medium text-sm select-none">
+                    $
+                  </span>
+                  <input
+                    id="smmlv"
+                    type="number"
+                    min={1000000}
+                    max={5000000}
+                    step={10000}
+                    value={smmlv}
+                    onChange={(e) => setSmmlv(e.target.value)}
+                    aria-label="Salario mínimo mensual vigente en pesos colombianos"
+                    className="w-full pl-7 pr-4 py-3 border border-gray-300 rounded-lg text-[#2C2C2A] text-sm focus:outline-none focus:ring-2 focus:ring-[#1D9E75] focus:border-transparent transition"
+                    placeholder="1423500"
+                  />
+                </div>
+              </div>
+
+              {/* Botón calcular */}
+              <button
+                onClick={handleCalcular}
+                aria-label="Calcular aportes de seguridad social"
+                className="w-full py-3 px-6 bg-[#1D9E75] hover:bg-[#0F6E56] text-white font-bold rounded-xl text-sm transition-colors shadow-sm"
+              >
+                Calcular aportes
+              </button>
+
+              {/* Resultados */}
+              <section
+                role="status"
+                aria-live="polite"
+                className={`transition-opacity duration-300 ${visible && result ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+              >
+                {result && (
+                  <div className="bg-[#E1F5EE] rounded-xl p-5 space-y-3">
+                    <h2 className="font-bold text-[#0F6E56] text-base mb-1">
+                      Tus aportes mensuales
+                    </h2>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div className="bg-white rounded-lg p-3">
+                        <p className="text-[#9C9B97] text-xs mb-1">IBC base</p>
+                        <p className="font-bold text-[#2C2C2A]">{formatCOP(result.ibc)}</p>
+                        {result.ibcMinimo && (
+                          <p className="text-xs text-[#9C9B97] mt-0.5">Mínimo SMMLV aplicado</p>
+                        )}
+                      </div>
+                      <div className="bg-white rounded-lg p-3">
+                        <p className="text-[#9C9B97] text-xs mb-1">Salud (12.5%)</p>
+                        <p className="font-bold text-[#2C2C2A]">{formatCOP(result.salud)}</p>
+                      </div>
+                      <div className="bg-white rounded-lg p-3">
+                        <p className="text-[#9C9B97] text-xs mb-1">Pensión (16%)</p>
+                        <p className="font-bold text-[#2C2C2A]">{formatCOP(result.pension)}</p>
+                      </div>
+                      <div className="bg-white rounded-lg p-3">
+                        <p className="text-[#9C9B97] text-xs mb-1">ARL ({arlNivel})</p>
+                        <p className="font-bold text-[#2C2C2A]">{formatCOP(result.arl)}</p>
+                      </div>
+                    </div>
+                    <div className="bg-[#1D9E75] rounded-xl p-4 text-white">
+                      <p className="text-xs font-medium opacity-80 mb-1">Total mensual</p>
+                      <p className="text-2xl font-extrabold">{formatCOP(result.total)}</p>
+                    </div>
+                    <button
+                      onClick={handleCopiar}
+                      className="w-full py-2 px-4 border border-[#1D9E75] text-[#1D9E75] rounded-lg text-sm font-medium hover:bg-[#E1F5EE] transition-colors"
+                    >
+                      {copied ? "¡Copiado!" : "Copiar resultado"}
+                    </button>
+                  </div>
+                )}
+              </section>
+            </div>
+          </section>
+
+          <AdUnit id="ad-below-tool" slot="0000000000" />
+
+          {/* ¿Cómo usar? */}
+          <section className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mb-6">
+            <h2 className="font-bold text-[#2C2C2A] text-lg mb-4">
+              ¿Cómo usar la calculadora?
+            </h2>
+            <ol className="space-y-3 text-sm text-[#5F5E5A]">
+              <li className="flex gap-3">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#E1F5EE] text-[#1D9E75] font-bold text-xs flex items-center justify-center">1</span>
+                <span>Ingresa tu ingreso mensual bruto en pesos colombianos — lo que facturas antes de descontar gastos.</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#E1F5EE] text-[#1D9E75] font-bold text-xs flex items-center justify-center">2</span>
+                <span>Selecciona tu nivel de riesgo ARL. La mayoría de independientes que trabajan desde casa son Riesgo I (0.522%).</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#E1F5EE] text-[#1D9E75] font-bold text-xs flex items-center justify-center">3</span>
+                <span>Haz clic en <strong>Calcular aportes</strong> y revisa el desglose de salud, pensión, ARL y el total mensual.</span>
+              </li>
+            </ol>
+          </section>
+
+          {/* Contenido principal */}
+          <section
+            className="prose prose-sm max-w-none text-[#5F5E5A] bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mb-6"
+            dangerouslySetInnerHTML={{ __html: mainContent }}
+          />
+
+          <AdUnit id="ad-mid-content" slot="0000000001" />
+
+          {/* FAQ */}
+          <section className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mb-6">
+            <h2 className="font-bold text-[#2C2C2A] text-lg mb-4">
+              Preguntas frecuentes
+            </h2>
+            <div className="space-y-2">
+              {faqs.map((faq, idx) => (
+                <div key={idx} className="border border-gray-200 rounded-xl overflow-hidden">
+                  <button
+                    onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                    className="w-full flex items-center justify-between px-4 py-3 text-left text-sm font-semibold text-[#2C2C2A] hover:bg-gray-50 transition-colors"
+                    aria-expanded={openFaq === idx}
+                  >
+                    <span>{faq.q}</span>
+                    <span className="ml-2 text-[#1D9E75] flex-shrink-0">{openFaq === idx ? "−" : "+"}</span>
+                  </button>
+                  {openFaq === idx && (
+                    <div className="px-4 pb-4 text-sm text-[#5F5E5A] border-t border-gray-100 pt-3">
+                      {faq.a}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Herramientas relacionadas */}
+          <section className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mb-6">
+            <h2 className="font-bold text-[#2C2C2A] text-base mb-3">
+              Herramientas relacionadas
+            </h2>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <a href="/calculadora-liquidacion-laboral-colombia" className="text-[#1D9E75] hover:underline">
+                  Calculadora de Liquidación Laboral Colombia
+                </a>
+              </li>
+              <li>
+                <a href="/calculadora-nomina-colombia" className="text-[#1D9E75] hover:underline">
+                  Calculadora de Nómina Colombia
+                </a>
+              </li>
+              <li>
+                <a href="/calculadora-retencion-fuente-colombia" className="text-[#1D9E75] hover:underline">
+                  Calculadora de Retención en la Fuente Colombia
+                </a>
+              </li>
+            </ul>
+          </section>
+
+          <AdUnit id="ad-bottom" slot="0000000002" />
+        </main>
+      </div>
+    </>
+  );
+}
