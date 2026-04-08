@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Calculadoras y Herramientas Gratuitas | CalcuTools",
   description:
     "Calculadoras financieras de hipoteca, préstamo, nómina e impuestos para Colombia y Latinoamérica. Gratis, sin registro, resultado inmediato.",
-  alternates: { canonical: "https://calcutools.lat" },
+  alternates: { canonical: "https://caclutools.online" },
 };
 
 const STATS = [
