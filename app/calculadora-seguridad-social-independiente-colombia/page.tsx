@@ -140,7 +140,7 @@ export default function Page() {
             "@context": "https://schema.org",
             "@type": "WebApplication",
             name: "Calculadora de Seguridad Social para Independientes Colombia 2026",
-            url: "https://publisher-production-26af.up.railway.app/calculadora-seguridad-social-independiente-colombia",
+            url: "https://caclutools.online/calculadora-seguridad-social-independiente-colombia",
             description:
               "Calcula tus aportes a salud, pensión y ARL como trabajador independiente en Colombia 2026.",
             applicationCategory: "FinanceApplication",
