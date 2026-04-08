@@ -21,12 +21,6 @@ export const TOOLS_REGISTRY: Tool[] = [
     publicada: "2026-04-07",
     status: "publicada",
   },
-];
-
-export const CATEGORIAS = [
-  { slug: "calculadoras", label: "Calculadoras", descripcion: "Financieras, de salud y más" },
-  { slug: "conversores",  label: "Conversores",  descripcion: "Documentos, imágenes y unidades" },
-  { slug: "generadores",  label: "Generadores",  descripcion: "Facturas, hojas de vida y más" },
   {
     slug: "calculadora-seguridad-social-independiente-colombia",
     nombre: "Calculadora de Seguridad Social para Independientes Colombia 2026",
@@ -34,9 +28,13 @@ export const CATEGORIAS = [
     categoria: "calculadora",
     nicho: "financiero",
     keyword: "cuanto pago de seguridad social como independiente",
-    mercado: "🌎 Latam",
-    icono: "💰",
     publicada: "2026-04-08",
     status: "publicada",
   },
+];
+
+export const CATEGORIAS = [
+  { slug: "calculadoras", label: "Calculadoras", descripcion: "Financieras, de salud y más" },
+  { slug: "conversores",  label: "Conversores",  descripcion: "Documentos, imágenes y unidades" },
+  { slug: "generadores",  label: "Generadores",  descripcion: "Facturas, hojas de vida y más" },
 ];
