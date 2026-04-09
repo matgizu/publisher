@@ -31,6 +31,16 @@ export const TOOLS_REGISTRY: Tool[] = [
     publicada: "2026-04-08",
     status: "publicada",
   },
+  {
+    slug: "calculadora-rentabilidad-neobancos-colombia-2026",
+    nombre: "Calculadora de Rentabilidad Neobancos Colombia 2026",
+    descripcion: "Calcula y compara la rentabilidad de Nu, Lulo Bank, Pibank y Nequi en 2026. Ingresa tu capital y período y descubre cuánto ganarás en COP. ¡Úsala gratis!",
+    categoria: "calculadora",
+    nicho: "fintech",
+    keyword: "calcular rentabilidad neobancos colombia 2026",
+    publicada: "2026-04-09",
+    status: "publicada",
+  },
 ];
 
 export const CATEGORIAS = [
