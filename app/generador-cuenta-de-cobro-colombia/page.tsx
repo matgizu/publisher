@@ -176,7 +176,7 @@ export default function GeneradorCuentaCobro() {
     const lightBg = [225, 245, 238];
 
     // Header background
-    doc.setFillColor(...primary as [number,number,number]);
+    doc.setFillColor(...(primary as [number,number,number]));
     doc.rect(0, 0, 210, 35, "F");
 
     doc.setTextColor(255, 255, 255);
@@ -192,14 +192,14 @@ export default function GeneradorCuentaCobro() {
     // Section helper
     let y = 42;
     function addSection(title: string, lines: string[][]) {
-      doc.setFillColor(...lightBg as [number,number,number]);
+      doc.setFillColor(...(lightBg as [number,number,number]));
       doc.rect(14, y - 4, 182, 7, "F");
-      doc.setTextColor(...dark as [number,number,number]);
+      doc.setTextColor(...(dark as [number,number,number]));
       doc.setFontSize(9);
       doc.setFont("helvetica", "bold");
       doc.text(title.toUpperCase(), 16, y);
       y += 6;
-      doc.setTextColor(...textColor as [number,number,number]);
+      doc.setTextColor(...(textColor as [number,number,number]));
       doc.setFont("helvetica", "normal");
       doc.setFontSize(9);
       lines.forEach(([label, val]) => {
@@ -233,15 +233,15 @@ export default function GeneradorCuentaCobro() {
     y += descLines.length * 5 + 2;
 
     // Valores
-    doc.setFillColor(...lightBg as [number,number,number]);
+    doc.setFillColor(...(lightBg as [number,number,number]));
     doc.rect(14, y - 4, 182, 7, "F");
-    doc.setTextColor(...dark as [number,number,number]);
+    doc.setTextColor(...(dark as [number,number,number]));
     doc.setFontSize(9);
     doc.setFont("helvetica", "bold");
     doc.text("VALOR", 16, y);
     y += 6;
 
-    doc.setTextColor(...textColor as [number,number,number]);
+    doc.setTextColor(...(textColor as [number,number,number]));
     doc.setFont("helvetica", "normal");
     doc.text("Valor bruto:", 16, y);
     doc.setFont("helvetica", "bold");
@@ -257,24 +257,24 @@ export default function GeneradorCuentaCobro() {
       doc.text(`Retención en la fuente (${retencion.tasa}% ${form.tipoRetencion}):`, 16, y);
       doc.setTextColor(180, 0, 0);
       doc.text(`- ${formatCOP(retencion.valor)}`, 110, y);
-      doc.setTextColor(...textColor as [number,number,number]);
+      doc.setTextColor(...(textColor as [number,number,number]));
       y += 6;
       doc.setFont("helvetica", "bold");
       doc.text("Valor neto a pagar:", 16, y);
-      doc.setFillColor(...primary as [number,number,number]);
+      doc.setFillColor(...(primary as [number,number,number]));
       doc.setTextColor(255, 255, 255);
       doc.rect(55, y - 4, 40, 7, "F");
       doc.text(formatCOP(retencion.neto), 75, y, { align: "center" });
-      doc.setTextColor(...textColor as [number,number,number]);
+      doc.setTextColor(...(textColor as [number,number,number]));
       y += 8;
     } else {
       doc.setFont("helvetica", "bold");
       doc.text("Valor total a pagar:", 16, y);
-      doc.setFillColor(...primary as [number,number,number]);
+      doc.setFillColor(...(primary as [number,number,number]));
       doc.setTextColor(255, 255, 255);
       doc.rect(55, y - 4, 40, 7, "F");
       doc.text(formatCOP(valor), 75, y, { align: "center" });
-      doc.setTextColor(...textColor as [number,number,number]);
+      doc.setTextColor(...(textColor as [number,number,number]));
       y += 8;
     }
 
@@ -298,17 +298,17 @@ export default function GeneradorCuentaCobro() {
 
     // Firma
     y += 6;
-    doc.setDrawColor(...primary as [number,number,number]);
+    doc.setDrawColor(...(primary as [number,number,number]));
     doc.setLineWidth(0.5);
     doc.line(14, y, 90, y);
-    doc.setTextColor(...textColor as [number,number,number]);
+    doc.setTextColor(...(textColor as [number,number,number]));
     doc.setFontSize(9);
     doc.setFont("helvetica", "normal");
     doc.text(form.nombreContratista || "Firma del contratista", 52, y + 5, { align: "center" });
     doc.text(`C.C. ${form.cedulaContratista}`, 52, y + 10, { align: "center" });
 
     // Footer
-    doc.setFillColor(...primary as [number,number,number]);
+    doc.setFillColor(...(primary as [number,number,number]));
     doc.rect(0, 285, 210, 12, "F");
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(7);
@@ -865,4 +865,38 @@ export default function GeneradorCuentaCobro() {
                 .content-section em{font-size:0.8rem;color:#777;}
               </style>
               <div class="content-section">
-              <h2>¿Qué es una cuenta de cobro y cuándo la necesitas?</h2><p>Una cuenta de cobro es el documento que usas como trabajador independiente para solicitar formalmente el pago de un servicio prestado. No es una factura electrónica. No necesita autorización de la DIAN. Pero sí es un soporte contable válido que la empresa pagadora incluye en su contabilidad y que tú guardas como respaldo de tus ingresos.</p><p>¿Cuándo la necesitas concretamente? Cada vez que una persona natural no obligada a facturar electrónicamente —es decir, alguien que pertenece al régimen simplificado o no responsable de IVA— presta un servicio y necesita cobrar. El fundamento legal está en el <strong>Artículo 7 del Decreto 19 de 2012</strong> (Decreto Antitrámites), que reconoce la cuenta de cobro como documento equivalente para soportar pagos a terceros no obligados a facturar.</p><p>En la práctica, la usan diseñadores gráficos, desarrolladores web, fotógrafos, consultores de marketing, profesores particulares, abogados independientes, contadores que trabajan por honorarios, psicólogos, nutricionistas y cualquier profesional que trabaje por cuenta propia en Colombia.</p><p>Ojo con esto: si ya te inscribiste como responsable de IVA o pasaste el tope de ingresos del régimen simple, probablemente necesitas factura electrónica. Pero si eres independiente con ingresos dentro de los límites del no responsable de IVA (menos de 3.500 UVT de ingresos brutos anuales, es decir, aproximadamente $168.021.500 para 2026), la cuenta de cobro es tu documento.</p><h2>Campos obligatorios de una cuenta de cobro en Colombia</h2><p>No existe una norma que diga «la cuenta de cobro debe tener exactamente estos campos». Pero la costumbre mercantil y las exigencias de los departamentos de contabilidad han consolidado una estructura que, si no la sigues, te devuelven el documento. Estos son los campos que necesitas incluir sí o sí:</p><ul><li><strong>Ciudad y fecha de emisión:</strong> Indica dónde y cuándo generas la cuenta de cobro. Ejemplo: Bogotá D.C., 15 de marzo de 2026.</li><li><strong>Número consecutivo:</strong> Cada cuenta debe tener un número único y correlativo. No puedes enviar dos cuentas con el mismo número al mismo pagador. Esto es clave para tu contabilidad y la de la empresa.</li><li><strong>Datos del contratante (quien paga):</strong> Razón social o nombre completo, NIT o cédula, dirección. Es la empresa o persona que te contrató.</li><li><strong>Datos del contratista (tú, quien cobra):</strong> Nombre completo, cédula de ciudadanía, dirección, teléfono y correo electrónico. También tu RUT si te lo piden.</li><li><strong>Concepto o descripción del servicio:</strong> Qué hiciste exactamente. No basta con poner «servicios profesionales». Detalla: «Diseño de identidad visual para la marca XYZ, incluyendo logo, paleta de colores y manual de marca». Entre más específico, menos preguntas de contabilidad.</li><li><strong>Valor total en números y en letras:</strong> Ambos son obligatorios. Si pones $2.500.000 en números, debe decir también «Dos millones quinientos mil pesos moneda corriente». Nuestro generador hace esta conversión automáticamente.</li><li><strong>Datos bancarios:</strong> Nombre del banco, tipo de cuenta (ahorros o corriente), número de cuenta. Sin esto, no te pueden transferir.</li><li><strong>Declaración de retención en la fuente:</strong> Indica si eres declarante o no declarante de renta, y el porcentaje de retención aplicable según el tipo de pago. Esto lo exige el área contable para aplicar correctamente la retención conforme al Art. 383 del Estatuto Tributario.</li><li><strong>Firma:</strong> Tu firma como contratista. En un PDF digital, basta con tu nombre digitado como firma, aunque algunas empresas aceptan firma escaneada.</li></ul><p>Nuestro generador de cuenta de cobro incluye todos estos campos en el formulario, así no se te olvida ninguno y el área contable no te devuelve el documento.</p><h2>Retención en la fuente en la cuenta de cobro: tasas 2026</h2><p>Este es el punto donde más se confunden los independientes. Y con razón, porque las tasas cambian según el tipo de pago y si eres declarante o no de renta. Vamos por partes.</p><p>La <strong>retención en la fuente</strong> es un mecanismo de recaudo anticipado del impuesto de renta. No es un impuesto adicional: es un adelanto que la empresa te descuenta al pagarte y le consigna a la DIAN a tu nombre. Cuando declares renta, ese valor ya pagado se resta de lo que debas.</p><h3>Tasas de retención vigentes para 2026</h3><table><thead><tr><th>Tipo de pago</th><th>Declarante de renta</th><th>No declarante</th><th>Base mínima (2026)</th></tr></thead><tbody><tr><td>Honorarios</td><td>10%</td><td>11%</td><td>$160.000 (aprox. 4 UVT)</td></tr><tr><td>Servicios en general</td><td>4%</td><td>6%</td><td>$160.000 (aprox. 4 UVT)</td></tr><tr><td>Arrendamiento bienes muebles</td><td>4%</td><td>3.5%</td><td>$160.000 (aprox. 4 UVT)</td></tr><tr><td>Arrendamiento bienes inmuebles</td><td>3.5%</td><td>3.5%</td><td>27 UVT</td></tr><tr><td>Compras en general</td><td>2.5%</td><td>2.5%</td><td>27 UVT</td></tr></tbody></table><p><em>La UVT para 2026 se estima en aproximadamente $49.799 (pendiente de confirmación por DIAN en enero 2026). Las bases mínimas se actualizan cada año.</em></p><h3>¿Honorarios o servicios? La diferencia que te afecta el bolsillo</h3
+              <h2>¿Qué es una cuenta de cobro y cuándo la necesitas?</h2><p>Una cuenta de cobro es el documento que usas como trabajador independiente para solicitar formalmente el pago de un servicio prestado. No es una factura electrónica. No necesita autorización de la DIAN. Pero sí es un soporte contable válido que la empresa pagadora incluye en su contabilidad y que tú guardas como respaldo de tus ingresos.</p><p>¿Cuándo la necesitas concretamente? Cada vez que una persona natural no obligada a facturar electrónicamente —es decir, alguien que pertenece al régimen simplificado o no responsable de IVA— presta un servicio y necesita cobrar. El fundamento legal está en el <strong>Artículo 7 del Decreto 19 de 2012</strong> (Decreto Antitrámites), que reconoce la cuenta de cobro como documento equivalente para soportar pagos a terceros no obligados a facturar.</p><p>En la práctica, la usan diseñadores gráficos, desarrolladores web, fotógrafos, consultores de marketing, profesores particulares, abogados independientes, contadores que trabajan por honorarios, psicólogos, nutricionistas y cualquier profesional que trabaje por cuenta propia en Colombia.</p><p>Ojo con esto: si ya te inscribiste como responsable de IVA o pasaste el tope de ingresos del régimen simple, probablemente necesitas factura electrónica. Pero si eres independiente con ingresos dentro de los límites del no responsable de IVA (menos de 3.500 UVT de ingresos brutos anuales, es decir, aproximadamente $168.021.500 para 2026), la cuenta de cobro es tu documento.</p><h2>Campos obligatorios de una cuenta de cobro en Colombia</h2><p>No existe una norma que diga «la cuenta de cobro debe tener exactamente estos campos». Pero la costumbre mercantil y las exigencias de los departamentos de contabilidad han consolidado una estructura que, si no la sigues, te devuelven el documento. Estos son los campos que necesitas incluir sí o sí:</p><ul><li><strong>Ciudad y fecha de emisión:</strong> Indica dónde y cuándo generas la cuenta de cobro. Ejemplo: Bogotá D.C., 15 de marzo de 2026.</li><li><strong>Número consecutivo:</strong> Cada cuenta debe tener un número único y correlativo. No puedes enviar dos cuentas con el mismo número al mismo pagador. Esto es clave para tu contabilidad y la de la empresa.</li><li><strong>Datos del contratante (quien paga):</strong> Razón social o nombre completo, NIT o cédula, dirección. Es la empresa o persona que te contrató.</li><li><strong>Datos del contratista (tú, quien cobra):</strong> Nombre completo, cédula de ciudadanía, dirección, teléfono y correo electrónico. También tu RUT si te lo piden.</li><li><strong>Concepto o descripción del servicio:</strong> Qué hiciste exactamente. No basta con poner «servicios profesionales». Detalla: «Diseño de identidad visual para la marca XYZ, incluyendo logo, paleta de colores y manual de marca». Entre más específico, menos preguntas de contabilidad.</li><li><strong>Valor total en números y en letras:</strong> Ambos son obligatorios. Si pones $2.500.000 en números, debe decir también «Dos millones quinientos mil pesos moneda corriente». Nuestro generador hace esta conversión automáticamente.</li><li><strong>Datos bancarios:</strong> Nombre del banco, tipo de cuenta (ahorros o corriente), número de cuenta. Sin esto, no te pueden transferir.</li><li><strong>Declaración de retención en la fuente:</strong> Indica si eres declarante o no declarante de renta, y el porcentaje de retención aplicable según el tipo de pago. Esto lo exige el área contable para aplicar correctamente la retención conforme al Art. 383 del Estatuto Tributario.</li><li><strong>Firma:</strong> Tu firma como contratista. En un PDF digital, basta con tu nombre digitado como firma, aunque algunas empresas aceptan firma escaneada.</li></ul><p>Nuestro generador de cuenta de cobro incluye todos estos campos en el formulario, así no se te olvida ninguno y el área contable no te devuelve el documento.</p><h2>Retención en la fuente en la cuenta de cobro: tasas 2026</h2><p>Este es el punto donde más se confunden los independientes. Y con razón, porque las tasas cambian según el tipo de pago y si eres declarante o no de renta. Vamos por partes.</p><p>La <strong>retención en la fuente</strong> es un mecanismo de recaudo anticipado del impuesto de renta. No es un impuesto adicional: es un adelanto que la empresa te descuenta al pagarte y le consigna a la DIAN a tu nombre. Cuando declares renta, ese valor ya pagado se resta de lo que debas.</p><h3>Tasas de retención vigentes para 2026</h3><table><thead><tr><th>Tipo de pago</th><th>Declarante de renta</th><th>No declarante</th><th>Base mínima (2026)</th></tr></thead><tbody><tr><td>Honorarios</td><td>10%</td><td>11%</td><td>$160.000 (aprox. 4 UVT)</td></tr><tr><td>Servicios en general</td><td>4%</td><td>6%</td><td>$160.000 (aprox. 4 UVT)</td></tr><tr><td>Arrendamiento bienes muebles</td><td>4%</td><td>3.5%</td><td>$160.000 (aprox. 4 UVT)</td></tr><tr><td>Arrendamiento bienes inmuebles</td><td>3.5%</td><td>3.5%</td><td>27 UVT</td></tr><tr><td>Compras en general</td><td>2.5%</td><td>2.5%</td><td>27 UVT</td></tr></tbody></table><p><em>La UVT para 2026 se estima en aproximadamente $49.799 (pendiente de confirmación por DIAN en enero 2026). Las bases mínimas se actualizan cada año.</em></p><h3>¿Honorarios o servicios? La diferencia que te afecta el bolsillo</h3><p>La diferencia impacta directamente el porcentaje de retención que te descuentan. Honorarios aplican a servicios con alto componente intelectual o profesional especializado: ingenieros, diseñadores, consultores, abogados, contadores. La retención base es del 10% para declarantes. Servicios aplican a actividades más operativas o de apoyo. La retención baja al 4% para declarantes. La clasificación depende de la naturaleza del servicio descrita en tu contrato, no de tu título profesional. En la práctica, revisa el objeto de tu contrato: la redacción ahí es lo que usa contabilidad para clasificar el pago y aplicar la tarifa correcta.</p><h2>¿Es obligatorio el número consecutivo en una cuenta de cobro?</h2><p>Sí. El número consecutivo es una buena práctica contable que protege tanto al contratista como al pagador. Te permite llevar un control claro de cuántas cuentas has emitido y en qué orden, lo que facilita conciliaciones y responde a posibles requerimientos de la DIAN. Cada cuenta debe tener un número único y correlativo por cliente o en general para todos tus clientes según tu organización. Nuestro generador incluye este campo y lo formatea automáticamente con ceros a la izquierda para que el PDF quede presentable.</p><h2>Preguntas legales frecuentes sobre la cuenta de cobro</h2><p>Una pregunta que surge con frecuencia es si la cuenta de cobro necesita firma original en físico. La respuesta es no: desde el <strong>Decreto 19 de 2012</strong> (Decreto Antitrámites) y la posterior <strong>Ley 2052 de 2020</strong>, los documentos en formato digital tienen plena validez para trámites públicos y privados en Colombia. Un PDF con tu nombre digitado como firma es suficiente para la gran mayoría de empresas pagadoras. Otra pregunta frecuente: ¿necesito timbre o sello notarial? No. La cuenta de cobro no requiere autenticación notarial.</p></div>
+              `
+            }}
+          />
+
+          {/* ── FAQ ── */}
+          <section className="mb-10 bg-white rounded-2xl shadow-sm p-6">
+            <h2 className="text-xl font-bold mb-5" style={{ color: "#0F6E56" }}>Preguntas frecuentes sobre la cuenta de cobro</h2>
+            <div className="space-y-3">
+              {faqData.map((faq, i) => (
+                <div key={i} className="border border-gray-200 rounded-xl overflow-hidden">
+                  <button
+                    className="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-sm"
+                    style={{ color: "#0F6E56" }}
+                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  >
+                    {faq.q}
+                    <span className="ml-2 flex-shrink-0">{openFaq === i ? "▲" : "▼"}</span>
+                  </button>
+                  {openFaq === i && (
+                    <div className="px-4 pb-4 text-sm text-gray-700 leading-relaxed border-t border-gray-100 pt-3">
+                      {faq.a}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+
+        </main>
+      </div>
+    </>
+  );
+}
+
