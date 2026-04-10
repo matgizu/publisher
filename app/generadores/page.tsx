@@ -5,7 +5,7 @@ import { TOOLS_REGISTRY } from "@/lib/tools-registry";
 export const metadata: Metadata = {
   title: "Generadores Gratis para Colombia | CalcuTools",
   description:
-    "Generadores de documentos laborales, comprobantes de pago, cuentas de cobro y más para Colombia. Gratuitos, sin registro, funcionan en tu navegador.",
+    "Generadores de documentos laborales, comprobantes de nómina, cuentas de cobro y más para Colombia. Gratuitos, sin registro, funcionan en tu navegador.",
   alternates: { canonical: "https://calcutools.online/generadores" },
 };
 
