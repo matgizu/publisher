@@ -154,21 +154,15 @@ export default function GeneradorLinkCobro() {
       q: "¿Puedo generar un QR sin poner monto?",
       a: "Sí. El campo de monto es opcional. Sin monto, el QR y el mensaje solo incluyen tu número y concepto — el pagador escribe el valor manualmente al abrir la app. Útil si vendes productos con precios variables.",
     },
-    {
-      q: "¿Funciona para Bancolombia también?",
-      a: "Para Bancolombia el QR funciona si el pagador tiene la app Bancolombia y usa la opción de transferir por QR. El mensaje de WhatsApp funciona para cualquier plataforma porque incluye el número de cuenta y el monto de forma clara.",
-    },
   ];
 
   const platformColors: Record<string, string> = {
     Nequi: "bg-purple-100 text-purple-700 border-purple-200",
     Daviplata: "bg-red-100 text-red-700 border-red-200",
-    "Bancolombia Personas": "bg-yellow-100 text-yellow-700 border-yellow-200",
   };
   const platformEmojis: Record<string, string> = {
     Nequi: "💜",
     Daviplata: "❤️",
-    "Bancolombia Personas": "💛",
   };
 
   const phoneDisplay = celular.trim().replace(/\D/g, "");
@@ -178,18 +172,18 @@ export default function GeneradorLinkCobro() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org", "@type": "WebApplication",
-        name: "Generador de Tarjeta de Cobro Nequi / Daviplata con QR",
+        name: "Generador de QR de Cobro Nequi y Daviplata",
         url: "https://calcutools.online/generador-link-cobro-nequi-daviplata",
-        description: "Genera gratis tu QR de cobro Nequi, Daviplata o Bancolombia con mensaje de WhatsApp prellenado. Sin registro, 100% en tu navegador.",
+        description: "Genera gratis tu QR de cobro Nequi o Daviplata con mensaje de WhatsApp prellenado. Sin registro, 100% en tu navegador.",
         applicationCategory: "FinanceApplication", operatingSystem: "All",
         offers: { "@type": "Offer", price: "0", priceCurrency: "COP" },
       })}} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org", "@type": "HowTo",
-        name: "Cómo generar un QR de cobro Nequi, Daviplata o Bancolombia",
+        name: "Cómo generar un QR de cobro Nequi o Daviplata",
         description: "Genera un QR de cobro con tu número y mensaje de WhatsApp prellenado en menos de 30 segundos.",
         step: [
-          { "@type": "HowToStep", position: 1, name: "Selecciona plataforma", text: "Elige Nequi, Daviplata o Bancolombia." },
+          { "@type": "HowToStep", position: 1, name: "Selecciona plataforma", text: "Elige Nequi o Daviplata." },
           { "@type": "HowToStep", position: 2, name: "Ingresa tu número", text: "Escribe tu número de celular o cuenta." },
           { "@type": "HowToStep", position: 3, name: "Agrega monto y concepto", text: "Escribe el valor a cobrar y el concepto del pago (ambos opcionales)." },
           { "@type": "HowToStep", position: 4, name: "Genera y comparte", text: "Haz clic en Generar. Descarga el QR o comparte el mensaje por WhatsApp." },
@@ -213,11 +207,11 @@ export default function GeneradorLinkCobro() {
                 <li>/</li>
                 <li><a href="/herramientas" className="hover:text-[#1D9E75] transition-colors">Herramientas</a></li>
                 <li>/</li>
-                <li className="text-[#1D9E75] font-medium" aria-current="page">QR de Cobro Nequi / Daviplata</li>
+                <li className="text-[#1D9E75] font-medium" aria-current="page">QR de Cobro Nequi y Daviplata</li>
               </ol>
             </nav>
             <h1 className="text-2xl md:text-3xl font-bold text-[#2C2C2A] leading-tight mb-2">
-              Generador de QR de Cobro Nequi, Daviplata y Bancolombia
+              Generador de QR de Cobro Nequi y Daviplata
             </h1>
             <p className="text-[#5F5E5A] text-base md:text-lg leading-relaxed">
               Crea tu QR con número de celular y mensaje de WhatsApp prellenado — listo para compartir o imprimir
@@ -245,8 +239,8 @@ export default function GeneradorLinkCobro() {
               {/* Plataforma */}
               <div>
                 <label className="block text-sm font-semibold text-[#2C2C2A] mb-2">Plataforma de cobro</label>
-                <div className="grid grid-cols-3 gap-2">
-                  {["Nequi", "Daviplata", "Bancolombia Personas"].map((p) => (
+                <div className="grid grid-cols-2 gap-2">
+                  {["Nequi", "Daviplata"].map((p) => (
                     <button key={p} onClick={() => setPlataforma(p)}
                       className={`py-3 px-2 rounded-xl border-2 text-xs font-semibold transition-all text-center ${
                         plataforma === p
@@ -254,7 +248,7 @@ export default function GeneradorLinkCobro() {
                           : "border-gray-200 bg-white text-[#5F5E5A] hover:border-[#1D9E75]/40"
                       }`}>
                       <div className="text-lg mb-1">{platformEmojis[p]}</div>
-                      <div>{p === "Bancolombia Personas" ? "Bancolombia" : p}</div>
+                      <div>{p}</div>
                     </button>
                   ))}
                 </div>
@@ -263,7 +257,7 @@ export default function GeneradorLinkCobro() {
               {/* Celular */}
               <div>
                 <label className="block text-sm font-semibold text-[#2C2C2A] mb-1">
-                  {plataforma === "Bancolombia Personas" ? "Número de cuenta Bancolombia" : "Tu número de celular"}
+                  Tu número de celular
                   <span className="text-red-500 ml-1">*</span>
                 </label>
                 <input type="tel" value={celular} onChange={(e) => setCelular(e.target.value)}
