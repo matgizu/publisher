@@ -1100,4 +1100,77 @@ export default function GeneradorDesprendibleNomina() {
             La buena noticia: no necesitas ser empresa. Si empleas a alguien en tu casa —sea empleada interna, externa, por días (si trabaja más de un día a la semana con el mismo empleador)— estás obligado a pagar seguridad social y tienes la responsabilidad de informarle cuánto le pagas y cuánto le descuentas.
           </p>
           <p>
-            Con esta herramienta, en el campo de "empleador" pones tu nombre y tu cédula. En "cargo" escribes lo que aplique: empleada doméstica, auxiliar de servicios generales
+            Con esta herramienta, en el campo de "empleador" pones tu nombre y tu cédula. En "cargo" escribes lo que aplique: empleada doméstica, auxiliar de servicios generales, niñera, entre otros.
+            El generador hace los mismos cálculos que para cualquier otro trabajador y el PDF queda igual de profesional.
+          </p>
+        </section>
+
+        {/* ── FAQ ─────────────────────────────────────────────────────────── */}
+        <section className="bg-white border-t border-gray-100 py-12">
+          <div className="max-w-3xl mx-auto px-4">
+            <h2 className="text-xl font-extrabold text-[#2C2C2A] mb-8">
+              Preguntas frecuentes
+            </h2>
+            <div className="space-y-3">
+              {faqs.map((faq, i) => (
+                <div key={i} className="border border-gray-200 rounded-xl overflow-hidden">
+                  <button
+                    className="w-full flex items-center justify-between px-5 py-4 text-left text-sm font-semibold text-[#2C2C2A] hover:bg-gray-50 transition"
+                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                    aria-expanded={openFaq === i}
+                  >
+                    <span>{faq.q}</span>
+                    <span className={`ml-3 text-[#1D9E75] transition-transform ${openFaq === i ? "rotate-45" : ""}`}>+</span>
+                  </button>
+                  {openFaq === i && (
+                    <div className="px-5 pb-4 text-sm text-[#5F5E5A] leading-relaxed border-t border-gray-100">
+                      {faq.a}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── HERRAMIENTAS RELACIONADAS ───────────────────────────────────── */}
+        <section className="bg-gray-50 border-t border-gray-100 py-12">
+          <div className="max-w-5xl mx-auto px-4">
+            <h2 className="text-lg font-extrabold text-[#2C2C2A] mb-6">
+              Herramientas laborales relacionadas
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                {
+                  href: "https://calcutools.online/calculadora-liquidacion-laboral-colombia",
+                  title: "Calculadora de liquidación laboral",
+                  desc: "Calcula cesantías, primas, vacaciones e indemnización según el CST.",
+                },
+                {
+                  href: "https://calcutools.online/generador-cuenta-de-cobro-colombia",
+                  title: "Generador de cuenta de cobro",
+                  desc: "Crea tu cuenta de cobro en PDF gratis. Ideal para contratistas y freelancers.",
+                },
+                {
+                  href: "https://calcutools.online/visualizador-factura-electronica-xml-dian",
+                  title: "Visor de factura electrónica DIAN",
+                  desc: "Lee y visualiza tu factura XML de la DIAN sin software especial.",
+                },
+              ].map((tool) => (
+                <a
+                  key={tool.href}
+                  href={tool.href}
+                  className="bg-white rounded-2xl p-5 border border-gray-200 hover:border-[#1D9E75] hover:shadow-sm transition block"
+                >
+                  <p className="font-semibold text-sm text-[#2C2C2A] mb-1">{tool.title}</p>
+                  <p className="text-xs text-[#5F5E5A] leading-relaxed">{tool.desc}</p>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </>
+  );
+}
