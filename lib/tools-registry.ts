@@ -51,6 +51,16 @@ export const TOOLS_REGISTRY: Tool[] = [
     publicada: "2026-04-10",
     status: "publicada",
   },
+  {
+    slug: "generador-cuenta-de-cobro-colombia",
+    nombre: "Generador de Cuenta de Cobro Colombia",
+    descripcion: "Genera tu cuenta de cobro en PDF gratis con retención en la fuente calculada (Art. 383 ET). Campos legales, vista previa y descarga sin registro. Colombia 2026.",
+    categoria: "generador",
+    nicho: "documentos",
+    keyword: "generador cuenta de cobro",
+    publicada: "2026-04-10",
+    status: "publicada",
+  },
 ];
 
 export const CATEGORIAS = [
