@@ -75,7 +75,7 @@ export const TOOLS_REGISTRY: Tool[] = [
     slug: "visor-nomina-electronica-xml-dian",
     nombre: "Visor XML Nómina Electrónica DIAN",
     descripcion: "Abre y lee tu XML de nómina electrónica DIAN en el navegador. Ve devengados, deducciones, neto y CUNE sin software ni registro.",
-    categoria: "tributario",
+    categoria: "generador",
     nicho: "laboral_tributario",
     keyword: "abrir xml nomina electronica dian",
     publicada: "2026-04-10",
