@@ -41,6 +41,16 @@ export const TOOLS_REGISTRY: Tool[] = [
     publicada: "2026-04-09",
     status: "publicada",
   },
+  {
+    slug: "generador-link-cobro-nequi-daviplata",
+    nombre: "Generador de Link y QR de Cobro Nequi / Daviplata",
+    descripcion: "Genera gratis tu link de pago Nequi, Daviplata o Bancolombia con QR descargable. Copia el enlace, comparte por WhatsApp y cobra al instante.",
+    categoria: "generador",
+    nicho: "pagos_digitales",
+    keyword: "generar link de pago nequi",
+    publicada: "2026-04-10",
+    status: "publicada",
+  },
 ];
 
 export const CATEGORIAS = [
