@@ -61,6 +61,16 @@ export const TOOLS_REGISTRY: Tool[] = [
     publicada: "2026-04-10",
     status: "publicada",
   },
+  {
+    slug: "generador-desprendible-nomina-colombia",
+    nombre: "Generador de Desprendible de Nómina Colombia",
+    descripcion: "Genera el desprendible de nómina colombiano en PDF gratis, sin Excel ni registro. Calcula salud, pensión y auxilio de transporte 2025 automáticamente.",
+    categoria: "generador",
+    nicho: "laboral",
+    keyword: "desprendible de nomina colombia",
+    publicada: "2026-04-10",
+    status: "publicada",
+  },
 ];
 
 export const CATEGORIAS = [
