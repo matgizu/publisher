@@ -6,6 +6,39 @@ const contenidoPrincipal = `
 <h2>¿Cómo funciona realmente cobrar por Nequi o Daviplata?</h2><p>A diferencia de lo que mucha gente cree, Nequi y Daviplata no tienen un "link mágico" que abra la app con el monto prellenado desde afuera. Eso solo existe dentro de la app misma. Lo que sí funciona — y muy bien — son tres cosas: un QR con tu número de celular, un mensaje de WhatsApp con los datos del cobro, y una tarjeta digital que puedes compartir por cualquier medio.</p><p>Esta herramienta genera las tres en segundos. Sin apps adicionales, sin registro, sin vueltas.</p><h2>El QR con tu número: ideal para ventas presenciales</h2><p>Cuando alguien abre Nequi y va a "Transferir" → "Escanear QR", puede escanear el código que genera esta herramienta. Automáticamente aparece tu número en la pantalla de envío y el pagador solo escribe el monto. Lo mismo funciona en Daviplata. Es el método más rápido para cobros en persona: lo imprimes, lo pegas en tu puesto y listo.</p><p>La calidad del QR es alta resolución para que funcione bien impreso en papel, adhesivo o cartón.</p><h2>El mensaje de WhatsApp prellenado: para ventas remotas</h2><p>Para negocios que operan por redes sociales — que en Colombia son la mayoría — el botón de WhatsApp es el más útil. Genera un mensaje tipo: <em>"Hola, por favor págame $35.000 por Nequi al celular 3101234567 – concepto: x10 empanadas"</em>. El cliente solo tiene que abrir la app, buscar el número y confirmar. Cero errores de digitación, cero excusas de "no vi el número bien".</p><h2>La tarjeta de cobro: para compartir en redes o stories</h2><p>La tarjeta muestra de forma clara la plataforma, tu número, el monto y el concepto. Puedes hacer captura de pantalla y enviarla por Instagram, TikTok o cualquier chat. Es lo que hacen la mayoría de emprendedores informales — esta herramienta te ahorra el hacerlo a mano cada vez.</p><h2>¿Para quién sirve esta herramienta?</h2><ul><li><strong>Vendedores de Instagram, TikTok y WhatsApp</strong> que necesitan cobrar rápido sin pasarela de pagos.</li><li><strong>Freelancers y trabajadores independientes</strong> que cobran por proyecto o por hora.</li><li><strong>Tiendas de barrio y negocios pequeños</strong> que quieren ofrecer pago digital sin datafono.</li><li><strong>Personas normales</strong> que quieren dividir la cuenta del restaurante o cobrar una vaca.</li><li><strong>Domiciliarios y repartidores</strong> que cobran contra entrega.</li></ul><h2>Tips para cobrar más rápido</h2><ul><li>Imprime el QR en tamaño mínimo de 6x6 cm para que se escanee bien con cámara de lejos.</li><li>Incluye siempre un concepto claro. "Pago pendiente" no dice nada. "Camiseta negra talla L" sí.</li><li>Si vendes en ferias, genera un QR sin monto fijo — el cliente abre la app y escribe el valor según lo que compró.</li><li>Comparte el mensaje de WhatsApp apenas cierres la venta. Entre más tiempo pase, más probable que el cliente "lo deje para después".</li></ul>
 `;
 
+// ── EMVCo QR (Nequi Colombia) ────────────────────────────────────────────────
+function crc16CCITT(str: string): number {
+  let crc = 0xFFFF;
+  for (let i = 0; i < str.length; i++) {
+    crc ^= str.charCodeAt(i) << 8;
+    for (let j = 0; j < 8; j++) {
+      crc = crc & 0x8000 ? (crc << 1) ^ 0x1021 : crc << 1;
+      crc &= 0xFFFF;
+    }
+  }
+  return crc;
+}
+
+function tlv(tag: string, value: string): string {
+  return tag + String(value.length).padStart(2, "0") + value;
+}
+
+function generateNequiEMVCo(celular: string, valor?: number): string {
+  const merchantInfo = tlv("00", "co.com.nequi") + tlv("01", celular);
+  let payload =
+    "000201" +
+    "010212" +
+    tlv("26", merchantInfo) +
+    tlv("52", "0000") +
+    tlv("53", "170");
+  if (valor && valor > 0) payload += tlv("54", String(valor));
+  payload += tlv("58", "CO");
+  payload += "6304";
+  const crc = crc16CCITT(payload).toString(16).toUpperCase().padStart(4, "0");
+  return payload + crc;
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 export default function GeneradorLinkCobro() {
   const [plataforma, setPlataforma] = useState("Nequi");
   const [celular, setCelular] = useState("");
@@ -30,12 +63,16 @@ export default function GeneradorLinkCobro() {
     return () => { document.body.removeChild(script); };
   }, []);
 
-  const generateQR = (phone: string) => {
+  const generateQR = (phone: string, amount?: number) => {
     if (!qrRef.current || !(window as any).QRCode) return;
     qrRef.current.innerHTML = "";
-    // QR encodes just the phone number — works in Nequi/Daviplata scanner
+    // Nequi: EMVCo QR standard (CRC16-CCITT, merchant account co.com.nequi)
+    // Other platforms: encode phone number directly
+    const qrText = plataforma === "Nequi"
+      ? generateNequiEMVCo(phone, amount)
+      : phone;
     new (window as any).QRCode(qrRef.current, {
-      text: phone,
+      text: qrText,
       width: 256,
       height: 256,
       colorDark: "#1D9E75",
@@ -50,7 +87,11 @@ export default function GeneradorLinkCobro() {
     setCopiadoNum(false);
 
     const phone = celular.trim().replace(/\D/g, "");
-    if (!phone || phone.length < 7) {
+    if (plataforma === "Nequi" && phone.length !== 10) {
+      setError("El celular Nequi debe tener exactamente 10 dígitos (ej: 3001234567).");
+      return;
+    }
+    if (plataforma !== "Nequi" && (!phone || phone.length < 7)) {
       setError("Ingresa un número de celular o cuenta válido.");
       return;
     }
@@ -71,7 +112,7 @@ export default function GeneradorLinkCobro() {
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
     setResultado({ whatsapp: whatsappUrl, mensaje });
 
-    setTimeout(() => { generateQR(phone); }, 100);
+    setTimeout(() => { generateQR(phone, montoNum ?? undefined); }, 100);
   };
 
   const handleDescargarQR = () => {
@@ -95,7 +136,7 @@ export default function GeneradorLinkCobro() {
   const faqs = [
     {
       q: "¿El QR abre Nequi directamente con mi número prellenado?",
-      a: "Sí, pero de una forma específica: el receptor abre la app de Nequi, va a Transferir → Escanear QR, y al escanear el código aparece tu número en la pantalla de envío. El monto lo escribe el pagador manualmente. Lo mismo funciona en Daviplata. No es un link externo que \"abre la app automáticamente\" — es un QR que funciona desde dentro de las apps.",
+      a: "Sí. El QR usa el estándar EMVCo (el mismo que usan los QR de datáfonos y bancos) con el identificador oficial de Nequi (co.com.nequi). Cuando el receptor abre Nequi → Transferir → Escanear QR y apunta al código, la app reconoce el formato, autocompleta tu número y, si incluiste monto, lo prellenará también. El pagador solo confirma. Lo mismo aplica para Daviplata, que también soporta EMVCo.",
     },
     {
       q: "¿Por qué no hay un 'link directo' que abra la app con el monto ya puesto?",
